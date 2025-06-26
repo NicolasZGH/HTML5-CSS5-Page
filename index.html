@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "preconnect" href="https://fonts.gstatic.com">
+    <link rel="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <title>Mi Página Web</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar-menu">
+            <input type="checkbox" id="check">
+            <label for="check" class="checkbtn">
+                <i class="fa-solid fa-bars"></i>
+            </label>
+            <label class="logo">CoffeeLive</label>
+            <ul class="nav-options">
+                <li><a href="#">Home</a></li>
+                <li><a href="#us">Services</a></li>
+                <li><a href="#clients">Clients</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="banner">
+            <div class="banner-content">
+                <img src="images/banner.png" alt="imagen-banner">
+                <div class="banner-text">
+                    <h2>Live Coffee</h2>
+                    <p>Welcome to the digital corner where the aroma of coffee becomes an experience. On our site, you'll discover the passion that drives us: selecting the finest beans, meticulously crafting each roast, and offering you a cup that awakens your senses. Whether you're a fan of intense espresso or smooth, fruity flavors, there's a story in every sip. Join our community and enjoy coffee like never before.</p>
+                    <a href="#">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+    <section class="about" id="us">
+        <div class="about-content">
+            <h2>About us</h2>
+            <p>We are a specialty coffee distributor driven by a deep respect for origin, quality, and connection. <br> Our mission is to bridge the gap between passionate producers and discerning businesses, delivering beans that tell a story in every cup. We partner directly with growers who share our commitment to sustainable farming and ethical sourcing, selecting only premium-grade coffee from diverse regions around the globe.
+With a curated portfolio of green and roasted beans, we serve cafés, restaurants, hotels, and retailers who seek consistency and distinction. Each product is backed by traceability, expert logistics, and personalized support—because we believe great coffee is not just sold, it’s shared. Whether you're building a new brand or elevating your existing menu, we're here to supply the quality and service that move your coffee forward.
+</p>
+            <div class="about-img">
+                <div class="about-imgx">
+                    <img src="images/imagen1.jpg" alt="workimages" class="img-job">
+                    <h4>Working 01</h4>
+                </div>
+                <div class="about-imgx">
+                    <img src="images/imagen2.jpg" alt="workimages" class="img-job">
+                    <h4>Working 02</h4>
+                </div>
+                <div class="about-imgx">
+                    <img src="images/imagen3.jpg" alt="workimages" class="img-job">
+                    <h4>Working 03</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonios" id="clients">
+        <div class="testimonios-content">
+            <h2>Clients</h2>
+            <p>Our clients support us</p>
+            <div class="testimonios-group">
+                <div class="testimonios-card">
+                    <img src="images/elian.jpg" alt="imagenperfil" class="img-perfil">
+                    <h4>Elio Martinez</h4>
+                    <p>Ever since we started working with this distributor, the quality of our coffee has gone up a notch. They not only provide outstanding beans, but also support us throughout the entire process. You can tell they’re passionate and truly committed. They’ve become a trusted partner in our business."</p>
+                </div>
+                <div class="testimonios-card">
+                    <img src="images/diego.jpg" alt="imagenperfil" class="img-perfil">
+                    <h4>Diego Gonzalo</h4>
+                    <p>"Working with this coffee distributor has been a game changer for our café. The beans are consistently fresh, and our customers have noticed the difference. Their team is responsive, knowledgeable, and always willing to help us grow. It feels more like a partnership than just a supplier relationship."</p>
+                </div>
+                <div class="testimonios-card">
+                    <img src="images/ernest.jpg" alt="imagenperfil" class="img-perfil">
+                    <h4>Ernest Martin</h4>
+                    <p>"We’ve worked with several suppliers over the years, but this distributor stands out for their consistency, reliability, and quality. Their attention to detail and personalized service make a real difference. It’s rare to find a partner who understands both the product and the business side so well."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contacto" id="contact">
+        <div class="contacto-content">
+            <h2>Contact</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing eli</p>
+            
+            <div class="contacto-group">
+                <form action="" class="form-contact">
+                    <div>
+                        <input type="text" placeholder="Name" class="form-control">
+                        <input type="text" placeholder="Last name" class="form-control">
+                        <input type="email" placeholder="Email" class="form-control">
+                        <input type="text" placeholder="Phone number" class="form-control">
+                    </div>
+                    <textarea name="message" id="message" rows="5" placeholder="Message" class="form-control"></textarea>
+                    <input type="submit" class="send-btn" value="Send">
+                </form>
+
+                <div class="contacto-img">
+                    <img src="images/contact.png" alt="imagencontacto">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social">
+                <label><a href="#"><i class="fab fa-facebook"></i></a></label>
+                <label><a href="#"><i class="fab fa-x"></i></a></label>
+                <label><a href="#"><i class="fab fa-instagram"></i></a></label>
+                <label><a href="#"><i class="fab fa-google"></i></a></label>
+            </div>
+            <div class="copr">
+                <p>NicolasGH Responsive Page Test &copy; 2025</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://kit.fontawesome.com/ddd5176714.js" crossorigin="anonymous"></script>
+</body>
+</html>
