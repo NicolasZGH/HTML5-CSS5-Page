@@ -126,5 +126,12 @@ With a curated portfolio of green and roasted beans, we serve cafés, restaurant
         </div>
     </footer>
     <script src="https://kit.fontawesome.com/ddd5176714.js" crossorigin="anonymous"></script>
+    <script>
+        document.querySelectorAll('.nav-options a').forEach(link => {
+        link.addEventListener('click', () => {
+        document.getElementById('check').checked = false;
+        });
+    });
+</script>
 </body>
 </html>
