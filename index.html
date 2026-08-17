@@ -1,137 +1,280 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel = "preconnect" href="https://fonts.gstatic.com">
-    <link rel="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <title>Coffe Web Site</title>
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LiveCoffee — Café de origen, en calma</title>
+<meta name="description" content="LiveCoffee selecciona y tuesta café de especialidad con un ritual pensado para la pausa, no para la prisa.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="icon" href="images/livecoffe.ico" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar-menu">
-            <input type="checkbox" id="check">
-            <label for="check" class="checkbtn">
-                <i class="fa-solid fa-bars"></i>
-            </label>
-            <label class="logo">CoffeeLive</label>
-            <ul class="nav-options">
-                <li><a href="#">Home</a></li>
-                <li><a href="#us">Services</a></li>
-                <li><a href="#clients">Clients</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-        <section class="banner">
-            <div class="banner-content">
-                <img src="images/banner.png" alt="imagen-banner">
-                <div class="banner-text">
-                    <h2>Live Coffee</h2>
-                    <p>Welcome to the digital corner where the aroma of coffee becomes an experience. On our site, you'll discover the passion that drives us: selecting the finest beans, meticulously crafting each roast, and offering you a cup that awakens your senses. Whether you're a fan of intense espresso or smooth, fruity flavors, there's a story in every sip. Join our community and enjoy coffee like never before.</p>
-                    <a href="#">Learn More</a>
-                </div>
-            </div>
-        </section>
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-    <section class="about" id="us">
-        <div class="about-content">
-            <h2>About us</h2>
-            <p>We are a specialty coffee distributor driven by a deep respect for origin, quality, and connection. <br> Our mission is to bridge the gap between passionate producers and discerning businesses, delivering beans that tell a story in every cup. We partner directly with growers who share our commitment to sustainable farming and ethical sourcing, selecting only premium-grade coffee from diverse regions around the globe.
-With a curated portfolio of green and roasted beans, we serve cafés, restaurants, hotels, and retailers who seek consistency and distinction. Each product is backed by traceability, expert logistics, and personalized support—because we believe great coffee is not just sold, it’s shared. Whether you're building a new brand or elevating your existing menu, we're here to supply the quality and service that move your coffee forward.
-</p>
-            <div class="about-img">
-                <div class="about-imgx">
-                    <img src="images/imagen1.jpg" alt="workimages" class="img-job">
-                    <h4>Working 01</h4>
-                </div>
-                <div class="about-imgx">
-                    <img src="images/imagen2.jpg" alt="workimages" class="img-job">
-                    <h4>Working 02</h4>
-                </div>
-                <div class="about-imgx">
-                    <img src="images/imagen3.jpg" alt="workimages" class="img-job">
-                    <h4>Working 03</h4>
-                </div>
-            </div>
+<header class="site-header" id="siteHeader">
+  <nav class="nav">
+    <a class="brand" href="#top">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="26" height="26">
+          <path d="M10 20h24v9a12 12 0 0 1-12 12v0A12 12 0 0 1 10 29z" fill="none" stroke="currentColor" stroke-width="2.4"/>
+          <path d="M34 22h3a5 5 0 0 1 0 10h-2.4" fill="none" stroke="currentColor" stroke-width="2.4"/>
+          <path d="M18 8c-2 2.5-2 4.3 0 6.5M25 8c-2 2.5-2 4.3 0 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+        </svg>
+      </span>
+      LiveCoffee
+    </a>
+
+    <input type="checkbox" id="check">
+    <label for="check" class="checkbtn" aria-label="Abrir menú">
+      <i class="fa-solid fa-bars"></i>
+    </label>
+
+    <ul class="nav-options">
+      <li><a href="#top">Inicio</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#ritual">El ritual</a></li>
+      <li><a href="#clientes">Clientes</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main id="contenido">
+
+  <section class="hero" id="top">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <p class="eyebrow">Café de especialidad — despacio, a propósito</p>
+        <h1>El silencio<br><em>tiene aroma</em><br>a café recién hecho.</h1>
+        <p class="lede">Seleccionamos, tostamos y servimos granos de origen para que cada taza sea una pausa real: un minuto tuyo, sin prisa, entre el primer sorbo y el último.</p>
+        <div class="hero-actions">
+          <a href="#ritual" class="btn btn-primary">Conocer el ritual</a>
+          <a href="#nosotros" class="btn btn-ghost">Quiénes somos</a>
         </div>
-    </section>
+      </div>
 
-    <section class="testimonios" id="clients">
-        <div class="testimonios-content">
-            <h2>Clients</h2>
-            <p>Our clients support us</p>
-            <div class="testimonios-group">
-                <div class="testimonios-card">
-                    <img src="images/elian.jpg" alt="imagenperfil" class="img-perfil">
-                    <h4>Elio Martinez</h4>
-                    <p>Ever since we started working with this distributor, the quality of our coffee has gone up a notch. They not only provide outstanding beans, but also support us throughout the entire process. You can tell they’re passionate and truly committed. They’ve become a trusted partner in our business."</p>
-                </div>
-                <div class="testimonios-card">
-                    <img src="images/diego.jpg" alt="imagenperfil" class="img-perfil">
-                    <h4>Diego Gonzalo</h4>
-                    <p>"Working with this coffee distributor has been a game changer for our café. The beans are consistently fresh, and our customers have noticed the difference. Their team is responsive, knowledgeable, and always willing to help us grow. It feels more like a partnership than just a supplier relationship."</p>
-                </div>
-                <div class="testimonios-card">
-                    <img src="images/ernest.jpg" alt="imagenperfil" class="img-perfil">
-                    <h4>Ernest Martin</h4>
-                    <p>"We’ve worked with several suppliers over the years, but this distributor stands out for their consistency, reliability, and quality. Their attention to detail and personalized service make a real difference. It’s rare to find a partner who understands both the product and the business side so well."</p>
-                </div>
-            </div>
+      <div class="hero-media" aria-hidden="true">
+        <img src="images/banner-crop.jpg" alt="" loading="eager">
+        <div class="steam" aria-hidden="true">
+          <span></span><span></span><span></span>
         </div>
-    </section>
+      </div>
+    </div>
 
-    <section class="contacto" id="contact">
-        <div class="contacto-content">
-            <h2>Contact</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing eli</p>
-            
-            <div class="contacto-group">
-                <form action="" class="form-contact">
-                    <div>
-                        <input type="text" placeholder="Name" class="form-control">
-                        <input type="text" placeholder="Last name" class="form-control">
-                        <input type="email" placeholder="Email" class="form-control">
-                        <input type="text" placeholder="Phone number" class="form-control">
-                    </div>
-                    <textarea name="message" id="message" rows="5" placeholder="Message" class="form-control"></textarea>
-                    <input type="submit" class="send-btn" value="Send">
-                </form>
+    <a href="#nosotros" class="scroll-cue" aria-label="Bajar a la siguiente sección">
+      <span></span>
+    </a>
+  </section>
 
-                <div class="contacto-img">
-                    <img src="images/contact.png" alt="imagencontacto">
-                </div>
-            </div>
+  <section class="about" id="nosotros">
+    <div class="about-grid">
+      <div class="about-copy reveal">
+        <p class="eyebrow eyebrow-dark">Nosotros</p>
+        <h2>Cuidamos el café desde&nbsp;la&nbsp;raíz<br>hasta&nbsp;la&nbsp;taza.</h2>
+        <p>Somos un distribuidor de café de especialidad que cree que la calma también se cultiva. Trabajamos directo con productores comprometidos con el cultivo sostenible, eligiendo únicamente lotes de grano verde y tostado de calidad superior de distintas regiones cafeteras.</p>
+        <p>Abastecemos cafeterías, restaurantes y hoteles que buscan consistencia y una historia real detrás de cada bolsa. Trazabilidad, logística cuidada y acompañamiento cercano — porque un buen café no se vende, se comparte.</p>
+        <a href="#contacto" class="text-link">Hablemos de tu carta de café <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+
+      <div class="about-gallery" role="list">
+        <figure class="reveal" role="listitem">
+          <img src="images/imagen1.jpg" alt="Granos de café recién cosechados en un cuenco de madera, junto a frutos de cacao." loading="lazy">
+          <figcaption>Origen &amp; selección</figcaption>
+        </figure>
+        <figure class="reveal offset" role="listitem">
+          <img src="images/imagen2.jpg" alt="Detalle del proceso de tueste artesanal del café." loading="lazy">
+          <figcaption>Tueste artesanal</figcaption>
+        </figure>
+        <figure class="reveal" role="listitem">
+          <img src="images/imagen3.jpg" alt="Café recién tostado listo para su distribución." loading="lazy">
+          <figcaption>Reparto cuidado</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="ritual" id="ritual">
+    <div class="ritual-intro reveal">
+      <p class="eyebrow">El ritual</p>
+      <h2>Cuatro minutos que&nbsp;marcan<br>el resto del día.</h2>
+      <p>Así preparamos cada pour-over en LiveCoffee. No es una lista de servicios: es el tiempo real que el café necesita para entregarte todo su aroma. Nada se apura.</p>
+    </div>
+
+    <ol class="ritual-timeline">
+      <li class="ritual-step reveal">
+        <span class="ritual-time">0:00</span>
+        <div class="ritual-body">
+          <h3>Floración</h3>
+          <p>Vertemos agua a 92° sobre el café recién molido. El grano libera su primer aroma y se hincha: es el CO₂ escapando, señal de un tueste fresco.</p>
         </div>
-    </section>
-
-
-    </main>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="social">
-                <label><a href="#"><i class="fab fa-facebook"></i></a></label>
-                <label><a href="#"><i class="fab fa-x"></i></a></label>
-                <label><a href="#"><i class="fab fa-instagram"></i></a></label>
-                <label><a href="#"><i class="fab fa-google"></i></a></label>
-            </div>
-            <div class="copr">
-                <p>NicolasGH Responsive Page Test &copy; 2025</p>
-            </div>
+      </li>
+      <li class="ritual-step reveal">
+        <span class="ritual-time">0:30</span>
+        <div class="ritual-body">
+          <h3>Primer vertido</h3>
+          <p>En círculos lentos, del centro hacia afuera, dejamos que el agua atraviese el café sin ahogarlo. Aquí se define el cuerpo de la taza.</p>
         </div>
-    </footer>
-    <script src="https://kit.fontawesome.com/ddd5176714.js" crossorigin="anonymous"></script>
-    <script>
-        document.querySelectorAll('.nav-options a').forEach(link => {
-        link.addEventListener('click', () => {
-        document.getElementById('check').checked = false;
-        });
+      </li>
+      <li class="ritual-step reveal">
+        <span class="ritual-time">1:45</span>
+        <div class="ritual-body">
+          <h3>Segundo vertido</h3>
+          <p>Un segundo riego más generoso equilibra la acidez y realza las notas dulces y frutales propias del origen del grano.</p>
+        </div>
+      </li>
+      <li class="ritual-step reveal">
+        <span class="ritual-time">3:00</span>
+        <div class="ritual-body">
+          <h3>Reposo y servido</h3>
+          <p>Dejamos que el filtro drene por completo. Sin remover, sin apurar. Lo que queda en la jarra es la calma, servida.</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section class="testimonios" id="clientes">
+    <div class="testimonios-content">
+      <p class="eyebrow eyebrow-light reveal">Clientes</p>
+      <h2 class="reveal">Quienes ya bajaron<br>el ritmo con nosotros</h2>
+
+      <div class="testimonios-group">
+        <figure class="testimonios-card reveal">
+          <blockquote>
+            <p>Desde que trabajamos con este distribuidor, la calidad de nuestro café subió un escalón. No solo entregan granos excelentes: acompañan todo el proceso. Se nota la pasión y el compromiso real.</p>
+          </blockquote>
+          <figcaption>
+            <img src="images/elian.jpg" alt="" class="img-perfil" loading="lazy">
+            <div>
+              <span class="name">Elio Martínez</span>
+              <span class="role">Café de barrio, Rosario</span>
+            </div>
+          </figcaption>
+        </figure>
+
+        <figure class="testimonios-card reveal">
+          <blockquote>
+            <p>Trabajar con LiveCoffee cambió nuestra cafetería. Los granos llegan siempre frescos y nuestros clientes lo notan. El equipo responde rápido y se involucra como un socio, no como un simple proveedor.</p>
+          </blockquote>
+          <figcaption>
+            <img src="images/diego.jpg" alt="" class="img-perfil" loading="lazy">
+            <div>
+              <span class="name">Diego Gonzalo</span>
+              <span class="role">Tostadero La Merced</span>
+            </div>
+          </figcaption>
+        </figure>
+
+        <figure class="testimonios-card reveal">
+          <blockquote>
+            <p>Trabajamos con varios proveedores a lo largo de los años, pero este distribuidor se destaca por su consistencia y atención al detalle. Es raro encontrar un socio que entienda tan bien el producto y el negocio.</p>
+          </blockquote>
+          <figcaption>
+            <img src="images/ernest.jpg" alt="" class="img-perfil" loading="lazy">
+            <div>
+              <span class="name">Ernesto Martín</span>
+              <span class="role">Hotel Boutique Almendro</span>
+            </div>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="contacto" id="contacto">
+    <div class="contacto-content">
+      <div class="contacto-intro reveal">
+        <p class="eyebrow eyebrow-dark">Contacto</p>
+        <h2>Contanos qué taza<br>estás buscando</h2>
+        <p>Respondemos en menos de 24 horas hábiles. Sin formularios eternos, sin apuro tampoco.</p>
+
+        <ul class="contact-details">
+          <li><i class="fa-solid fa-mug-saucer"></i> hola@livecoffee.com</li>
+          <li><i class="fa-solid fa-phone"></i> +54 9 362 000-0000</li>
+          <li><i class="fa-solid fa-location-dot"></i> Chaco, Argentina</li>
+        </ul>
+      </div>
+
+      <form action="" class="form-contact reveal" novalidate>
+        <div class="field-row">
+          <div class="field">
+            <input type="text" id="nombre" placeholder=" " required>
+            <label for="nombre">Nombre</label>
+          </div>
+          <div class="field">
+            <input type="text" id="apellido" placeholder=" ">
+            <label for="apellido">Apellido</label>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <input type="email" id="email" placeholder=" " required>
+            <label for="email">Email</label>
+          </div>
+          <div class="field">
+            <input type="tel" id="telefono" placeholder=" ">
+            <label for="telefono">Teléfono</label>
+          </div>
+        </div>
+        <div class="field">
+          <textarea id="mensaje" rows="4" placeholder=" "></textarea>
+          <label for="mensaje">Contanos sobre tu cafetería o negocio</label>
+        </div>
+        <button type="submit" class="btn btn-primary send-btn">Enviar mensaje</button>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-content">
+    <a class="brand brand-footer" href="#top">LiveCoffee</a>
+    <div class="social">
+      <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="#" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="#" aria-label="Google"><i class="fab fa-google"></i></a>
+    </div>
+    <p class="copr">© 2026 LiveCoffee. Hecho con calma.</p>
+  </div>
+</footer>
+
+<script>
+  // Cerrar el menú móvil al navegar
+  document.querySelectorAll('.nav-options a').forEach(link => {
+    link.addEventListener('click', () => {
+      document.getElementById('check').checked = false;
     });
+  });
+
+  // Header sólido al hacer scroll
+  const header = document.getElementById('siteHeader');
+  const onScroll = () => header.classList.toggle('is-solid', window.scrollY > 40);
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Revelado suave al hacer scroll
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealEls = document.querySelectorAll('.reveal');
+  if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(el => el.classList.add('is-visible'));
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach(el => io.observe(el));
+  }
 </script>
 </body>
 </html>
