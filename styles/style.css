@@ -705,6 +705,16 @@ a { color: inherit; }
 }
 
 @media (max-width: 768px) {
+  .site-header {
+    width: 100%;
+  }
+
+  .nav {
+    max-width: none;
+    width: 100%;
+    padding: 18px 20px;
+  }
+
   .checkbtn {
     display: flex;
     align-items: center;
@@ -736,6 +746,8 @@ a { color: inherit; }
   .nav-options {
     position: fixed;
     inset: 0;
+    width: 100vw;
+    height: 100vh;
     flex-direction: column;
     justify-content: center;
     align-items: center;
