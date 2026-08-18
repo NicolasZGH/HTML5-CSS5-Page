@@ -5,11 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffee Performance - HTML5 & CSS5</title>
     
-    <!-- ============================================================
-    MEJORA 1: CSS CRÍTICO INLINE (evita bloqueo de renderizado)
-    ============================================================ -->
+    <!-- CSS CRÍTICO INLINE -->
     <style>
-        /* CSS Crítico - Solo lo necesario para el renderizado inicial */
         * {
             margin: 0;
             padding: 0;
@@ -134,14 +131,12 @@
             gap: 0.5rem;
         }
         
-        /* Mejora: Loading Lazy nativo para imágenes */
         img {
             max-width: 100%;
             height: auto;
             border-radius: 8px;
         }
         
-        /* Mejora: Reduce el uso de fuentes externas */
         @media (max-width: 600px) {
             .container { padding: 1rem; }
             h1 { font-size: 1.8rem; }
@@ -150,43 +145,31 @@
         }
     </style>
     
-    <!-- ============================================================
-    MEJORA 2: Carga asíncrona de CSS no crítico
-    ============================================================ -->
+    <!-- CSS NO CRÍTICO (carga asíncrona) -->
     <link rel="preload" href="styles/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="styles/main.css"></noscript>
     
-    <!-- ============================================================
-    MEJORA 3: Preconexión a orígenes externos
-    ============================================================ -->
+    <!-- Preconexión -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
 </head>
 <body>
     <div class="container">
-        <!-- Badge de rendimiento -->
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:0.5rem;">
             <span class="badge">⚡ Rendimiento Optimizado</span>
             <span style="font-size:0.8rem;color:#6b4c3b;">v2.0 · 2026</span>
         </div>
         
-        <!-- ============================================================
-        MEJORA 4: Título con semántica HTML5
-        ============================================================ -->
         <header>
             <h1>☕ LiveCoffee</h1>
             <p class="subtitle">El silencio tiene aroma a café recién hecho.</p>
         </header>
         
-        <!-- ============================================================
-        MEJORA 5: Contenido principal con semántica
-        ============================================================ -->
         <main>
             <blockquote class="quote">
                 “Seleccionamos, testamos y servimos granos de origen para que cada taza sea una experiencia real: un minuto tuyo, sin prisas, entre el primer sorbo y el último.”
             </blockquote>
             
-            <!-- Métricas de rendimiento -->
             <section aria-label="Métricas de rendimiento">
                 <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;">
                     <h2 style="font-size:1rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#6b4c3b;">
@@ -214,7 +197,6 @@
                     </div>
                 </div>
                 
-                <!-- Barra de puntuación -->
                 <div class="score-bar">
                     <span class="segment red" style="flex:0.49;" aria-label="49% rojo"></span>
                     <span class="segment yellow" style="flex:0.41;" aria-label="41% amarillo"></span>
@@ -227,14 +209,7 @@
                 </div>
             </section>
             
-            <!-- ============================================================
-            MEJORA 6: Imagen optimizada con lazy loading
-            ============================================================ -->
             <figure style="margin:1rem 0;border-radius:12px;overflow:hidden;background:#f5efe9;">
-                <!--
-                MEJORA: Imagen en formato moderno (WebP) con fallback
-                La imagen real debe estar en /images/coffee.webp
-                -->
                 <picture>
                     <source srcset="images/coffee.webp" type="image/webp">
                     <source srcset="images/coffee.jpg" type="image/jpeg">
@@ -253,9 +228,6 @@
                 </figcaption>
             </figure>
             
-            <!-- ============================================================
-            MEJORA 7: Diagnósticos con semántica
-            ============================================================ -->
             <section aria-label="Diagnósticos de rendimiento">
                 <h2 style="font-size:0.9rem;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;color:#6b4c3b;margin-bottom:0.5rem;">
                     🔍 Diagnósticos
@@ -277,9 +249,6 @@
             </section>
         </main>
         
-        <!-- ============================================================
-        MEJORA 8: Footer con información útil
-        ============================================================ -->
         <footer class="footer">
             <span>© 2026 LiveCoffee · Hecho con ☕</span>
             <span>
@@ -290,23 +259,22 @@
         </footer>
     </div>
     
-    <!-- ============================================================
-    MEJORA 9: JavaScript no bloqueante (defer)
-    ============================================================ -->
-    <script defer src="scripts/main.js"></script>
+    <script defer>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('LiveCoffee - Página optimizada para rendimiento');
+        });
+    </script>
     
-    <!-- ============================================================
-    MEJORA 10: Registro de Service Worker para caché
-    ============================================================ -->
-    <script>
-        // Registro de Service Worker para caché eficiente
+    <script defer>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/sw.js').then(function(registration) {
-                    console.log('SW registrado con éxito:', registration.scope);
-                }).catch(function(error) {
-                    console.log('Error al registrar SW:', error);
-                });
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('SW registrado con éxito:', registration.scope);
+                    })
+                    .catch(function(error) {
+                        console.log('Error al registrar SW:', error);
+                    });
             });
         }
     </script>
