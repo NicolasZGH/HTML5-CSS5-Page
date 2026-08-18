@@ -1,377 +1,1001 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LiveCoffee — Café de origen, en calma</title>
-<meta name="description" content="LiveCoffee selecciona y tuesta café de especialidad con un ritual pensado para la pausa, no para la prisa.">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- ============================================================
-     MEJORA 1: Preconexión a orígenes externos (más rápido)
-     ============================================================ -->
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-<link rel="dns-prefetch" href="https://fonts.gstatic.com">
-<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <title>LiveCoffee — Café de origen, en calma</title>
 
-<!-- ============================================================
-     MEJORA 2: CSS CRÍTICO INLINE (renderizado rápido)
-     Solo las reglas necesarias para el primer pintado
-     ============================================================ -->
-<style>
-/* --- Solo CSS crítico para el renderizado inicial --- */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
-}
-body {
-  font-family: 'Inter', sans-serif;
-  color: #241a12;
-  background: #faf3e7;
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-}
-img { display: block; max-width: 100%; }
-:root {
-  --espresso: #1b140f; --espresso-2: #241a12; --madera: #3a2a1e;
-  --crema: #faf3e7; --crema-2: #f2e8d6; --hoja: #6e7f5c;
-  --hoja-oscura: #4f5c40; --miel: #c68a4e; --miel-clara: #dba86c;
-  --texto-claro: #f4ece0; --texto-suave: rgba(244,236,224,0.78);
-  --texto-oscuro: #241a12; --display: 'Fraunces', serif;
-  --cuerpo: 'Inter', sans-serif; --mono: 'IBM Plex Mono', monospace;
-  --container: 1180px; --radius: 18px; --ease: cubic-bezier(.22,.61,.36,1);
-}
-/* Estilos críticos del header y hero (para evitar layout shift) */
-.site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 0; }
-.nav { max-width: var(--container); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 22px 28px; }
-.brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 600; font-size: 1.35rem; color: var(--texto-claro); text-decoration: none; }
-.hero { position: relative; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; overflow: hidden; background: radial-gradient(ellipse 1000px 700px at 82% 20%, rgba(198,138,78,0.16), transparent 60%), var(--espresso); }
-.hero-inner { position: relative; z-index: 1; max-width: var(--container); margin: 0 auto; width: 100%; padding: 150px 28px 90px; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center; }
-.hero-content { color: var(--texto-claro); }
-.hero-content h1 { font-family: var(--display); font-weight: 450; font-size: clamp(2.6rem, 6vw, 4.6rem); line-height: 1.08; max-width: 15ch; letter-spacing: -0.01em; }
-.hero-content h1 em { font-style: italic; font-weight: 400; color: var(--miel-clara); }
-.lede { margin-top: 28px; max-width: 46ch; font-size: 1.12rem; line-height: 1.65; color: var(--texto-suave); }
-.btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 26px; border-radius: 999px; font-family: var(--cuerpo); font-weight: 600; font-size: 0.95rem; text-decoration: none; border: 1.5px solid transparent; cursor: pointer; transition: transform 0.35s var(--ease), background 0.35s var(--ease), color 0.35s var(--ease), border-color 0.35s var(--ease); }
-.btn-primary { background: var(--miel); color: var(--espresso); }
-.btn-ghost { background: transparent; color: var(--texto-claro); border-color: rgba(244,236,224,0.45); }
-/* Para móviles, el menú se maneja con JS/CSS, pero dejamos el toggle visible */
-#check, .checkbtn { display: none; }
-@media (max-width: 768px) {
-  .checkbtn { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; position: fixed; top: 14px; right: 18px; z-index: 1100; font-size: 20px; color: var(--texto-claro); cursor: pointer; border-radius: 999px; background: rgba(244,236,224,0.08); }
-  .checkbtn i { position: relative; width: 18px; height: 2px; background: currentColor; font-size: 0; }
-  .checkbtn i::before, .checkbtn i::after { content: ""; position: absolute; left: 0; width: 18px; height: 2px; background: currentColor; }
-  .checkbtn i::before { top: -6px; }
-  .checkbtn i::after { top: 6px; }
-  .nav-options { position: fixed; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%; flex-direction: column; justify-content: center; align-items: center; gap: 8px; background: rgba(27,20,15,0.98); backdrop-filter: blur(10px); transform: translateX(100%); transition: transform 0.45s var(--ease); z-index: 1050; list-style: none; }
-  .nav-options a { color: var(--texto-claro); text-decoration: none; font-size: 1.3rem; padding: 14px 22px; border-radius: 999px; transition: background 0.3s var(--ease); }
-  #check:checked ~ .nav-options { transform: translateX(0); }
-  .hero-inner { grid-template-columns: 1fr; padding: 120px 22px 70px; gap: 36px; }
-  .hero-media { aspect-ratio: 5 / 4; order: -1; }
-  .steam { display: none; }
-}
-</style>
+    <meta
+        name="description"
+        content="LiveCoffee selecciona y tuesta café de especialidad con un ritual pensado para la pausa, no para la prisa."
+    >
 
-<!-- ============================================================
-     MEJORA 3: CSS NO CRÍTICO — carga asíncrona (no bloquea)
-     ============================================================ -->
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<link rel="preload" href="styles/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="styles/style.css">
-</noscript>
+    <!-- Preconexión únicamente a los recursos realmente utilizados -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Preload de la imagen LCP -->
+    <link
+        rel="preload"
+        as="image"
+        href="images/banner-crop.webp"
+        fetchpriority="high"
+    >
+
+    <!-- CSS -->
+    <link rel="preload" href="styles/style.css" as="style">
+    <link rel="stylesheet" href="styles/style.css">
+
+    <!-- Fuentes -->
+    <link
+        rel="preload"
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+        as="style"
+        onload="this.onload=null;this.rel='stylesheet'"
+    >
+
+    <noscript>
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+        >
+    </noscript>
 
 </head>
+
 <body>
 
-<a class="skip-link" href="#contenido">Saltar al contenido</a>
-
-<header class="site-header" id="siteHeader">
-  <nav class="nav">
-    <a class="brand" href="#top">
-      <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 48 48" width="26" height="26">
-          <path d="M10 20h24v9a12 12 0 0 1-12 12v0A12 12 0 0 1 10 29z" fill="none" stroke="currentColor" stroke-width="2.4"/>
-          <path d="M34 22h3a5 5 0 0 1 0 10h-2.4" fill="none" stroke="currentColor" stroke-width="2.4"/>
-          <path d="M18 8c-2 2.5-2 4.3 0 6.5M25 8c-2 2.5-2 4.3 0 6.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".7"/>
-        </svg>
-      </span>
-      LiveCoffee
+    <a class="skip-link" href="#contenido">
+        Saltar al contenido
     </a>
 
-    <input type="checkbox" id="check">
-    <label for="check" class="checkbtn" aria-label="Abrir menú">
-      <i class="fa-solid fa-bars"></i>
-    </label>
+    <!-- ============================================================
+         HEADER
+         ============================================================ -->
 
-    <ul class="nav-options">
-      <li><a href="#top">Inicio</a></li>
-      <li><a href="#nosotros">Nosotros</a></li>
-      <li><a href="#ritual">El ritual</a></li>
-      <li><a href="#clientes">Clientes</a></li>
-      <li><a href="#contacto">Contacto</a></li>
-    </ul>
-  </nav>
-</header>
+    <header class="site-header" id="siteHeader">
 
-<main id="contenido">
+        <nav class="nav">
 
-  <section class="hero" id="top">
-    <div class="hero-inner">
-      <div class="hero-content">
-        <p class="eyebrow">Café de especialidad — despacio, a propósito</p>
-        <h1>El silencio<br><em>tiene aroma</em><br>a café recién hecho.</h1>
-        <p class="lede">Seleccionamos, tostamos y servimos granos de origen para que cada taza sea una pausa real: un minuto tuyo, sin prisa, entre el primer sorbo y el último.</p>
-        <div class="hero-actions">
-          <a href="#ritual" class="btn btn-primary">Conocer el ritual</a>
-          <a href="#nosotros" class="btn btn-ghost">Quiénes somos</a>
-        </div>
-      </div>
+            <a class="brand" href="#top">
 
-      <div class="hero-media" aria-hidden="true">
-        <!-- MEJORA 4: Imagen con loading eager (es la hero, debe cargar rápido) -->
-        <img src="images/banner-crop.jpg" alt="" loading="eager" decoding="async">
-        <div class="steam" aria-hidden="true">
-          <span></span><span></span><span></span>
-        </div>
-      </div>
-    </div>
+                <span class="brand-mark" aria-hidden="true">
 
-    <a href="#nosotros" class="scroll-cue" aria-label="Bajar a la siguiente sección">
-      <span></span>
-    </a>
-  </section>
+                    <svg
+                        viewBox="0 0 48 48"
+                        width="26"
+                        height="26"
+                        aria-hidden="true"
+                    >
+                        <path
+                            d="M10 20h24v9a12 12 0 0 1-12 12v0A12 12 0 0 1 10 29z"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.4"
+                        />
 
-  <section class="about" id="nosotros">
-    <div class="about-grid">
-      <div class="about-copy reveal">
-        <p class="eyebrow eyebrow-dark">Nosotros</p>
-        <h2>Cuidamos el café desde&nbsp;la&nbsp;raíz<br>hasta&nbsp;la&nbsp;taza.</h2>
-        <p>Somos un distribuidor de café de especialidad que cree que la calma también se cultiva. Trabajamos directo con productores comprometidos con el cultivo sostenible, eligiendo únicamente lotes de grano verde y tostado de calidad superior de distintas regiones cafeteras.</p>
-        <p>Abastecemos cafeterías, restaurantes y hoteles que buscan consistencia y una historia real detrás de cada bolsa. Trazabilidad, logística cuidada y acompañamiento cercano — porque un buen café no se vende, se comparte.</p>
-        <a href="#contacto" class="text-link">Hablemos de tu carta de café <i class="fa-solid fa-arrow-right"></i></a>
-      </div>
+                        <path
+                            d="M34 22h3a5 5 0 0 1 0 10h-2.4"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.4"
+                        />
 
-      <div class="about-gallery" role="list">
-        <!-- MEJORA 5: lazy loading en imágenes secundarias -->
-        <figure class="reveal" role="listitem">
-          <img src="images/imagen1.jpg" alt="Granos de café recién cosechados en un cuenco de madera, junto a frutos de cacao." loading="lazy" decoding="async">
-          <figcaption>Origen &amp; selección</figcaption>
-        </figure>
-        <figure class="reveal offset" role="listitem">
-          <img src="images/imagen2.jpg" alt="Detalle del proceso de tueste artesanal del café." loading="lazy" decoding="async">
-          <figcaption>Tueste artesanal</figcaption>
-        </figure>
-        <figure class="reveal" role="listitem">
-          <img src="images/imagen3.jpg" alt="Café recién tostado listo para su distribución." loading="lazy" decoding="async">
-          <figcaption>Reparto cuidado</figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
+                        <path
+                            d="M18 8c-2 2.5-2 4.3 0 6.5M25 8c-2 2.5-2 4.3 0 6.5"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            opacity=".7"
+                        />
 
-  <section class="ritual" id="ritual">
-    <div class="ritual-intro reveal">
-      <p class="eyebrow">El ritual</p>
-      <h2>Cuatro minutos que&nbsp;marcan<br>el resto del día.</h2>
-      <p>Así preparamos cada pour-over en LiveCoffee. No es una lista de servicios: es el tiempo real que el café necesita para entregarte todo su aroma. Nada se apura.</p>
-    </div>
+                    </svg>
 
-    <ol class="ritual-timeline">
-      <li class="ritual-step reveal">
-        <span class="ritual-time">0:00</span>
-        <div class="ritual-body">
-          <h3>Floración</h3>
-          <p>Vertemos agua a 92° sobre el café recién molido. El grano libera su primer aroma y se hincha: es el CO₂ escapando, señal de un tueste fresco.</p>
-        </div>
-      </li>
-      <li class="ritual-step reveal">
-        <span class="ritual-time">0:30</span>
-        <div class="ritual-body">
-          <h3>Primer vertido</h3>
-          <p>En círculos lentos, del centro hacia afuera, dejamos que el agua atraviese el café sin ahogarlo. Aquí se define el cuerpo de la taza.</p>
-        </div>
-      </li>
-      <li class="ritual-step reveal">
-        <span class="ritual-time">1:45</span>
-        <div class="ritual-body">
-          <h3>Segundo vertido</h3>
-          <p>Un segundo riego más generoso equilibra la acidez y realza las notas dulces y frutales propias del origen del grano.</p>
-        </div>
-      </li>
-      <li class="ritual-step reveal">
-        <span class="ritual-time">3:00</span>
-        <div class="ritual-body">
-          <h3>Reposo y servido</h3>
-          <p>Dejamos que el filtro drene por completo. Sin remover, sin apurar. Lo que queda en la jarra es la calma, servida.</p>
-        </div>
-      </li>
-    </ol>
-  </section>
+                </span>
 
-  <section class="testimonios" id="clientes">
-    <div class="testimonios-content">
-      <p class="eyebrow eyebrow-light reveal">Clientes</p>
-      <h2 class="reveal">Quienes ya bajaron<br>el ritmo con nosotros</h2>
+                LiveCoffee
 
-      <div class="testimonios-group">
-        <figure class="testimonios-card reveal">
-          <blockquote>
-            <p>Desde que trabajamos con este distribuidor, la calidad de nuestro café subió un escalón. No solo entregan granos excelentes: acompañan todo el proceso. Se nota la pasión y el compromiso real.</p>
-          </blockquote>
-          <figcaption>
-            <!-- MEJORA 6: lazy loading en imágenes de perfil -->
-            <img src="images/elian.jpg" alt="" class="img-perfil" loading="lazy" decoding="async">
-            <div>
-              <span class="name">Elio Martínez</span>
-              <span class="role">Café de barrio, Rosario</span>
+            </a>
+
+
+            <!-- Menú móvil -->
+
+            <input
+                type="checkbox"
+                id="check"
+                aria-label="Abrir menú"
+            >
+
+            <label
+                for="check"
+                class="checkbtn"
+                aria-label="Abrir menú"
+            >
+            <i class="fa-solid fa-bars">
+            </i>
+                <span aria-hidden="true"></span>
+            </label>
+
+
+            <!-- Navegación -->
+
+            <ul class="nav-options">
+
+                <li>
+                    <a href="#top">Inicio</a>
+                </li>
+
+                <li>
+                    <a href="#nosotros">Nosotros</a>
+                </li>
+
+                <li>
+                    <a href="#ritual">El ritual</a>
+                </li>
+
+                <li>
+                    <a href="#clientes">Clientes</a>
+                </li>
+
+                <li>
+                    <a href="#contacto">Contacto</a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </header>
+
+
+    <!-- ============================================================
+         CONTENIDO
+         ============================================================ -->
+
+    <main id="contenido">
+
+
+        <!-- ========================================================
+             HERO
+             ======================================================== -->
+
+        <section class="hero" id="top">
+
+            <div class="hero-inner">
+
+                <div class="hero-content">
+
+                    <p class="eyebrow">
+                        Café de especialidad — despacio, a propósito
+                    </p>
+
+                    <h1>
+                        El silencio
+                        <br>
+                        <em>tiene aroma</em>
+                        <br>
+                        a café recién hecho.
+                    </h1>
+
+                    <p class="lede">
+                        Seleccionamos, tostamos y servimos granos de origen
+                        para que cada taza sea una pausa real: un minuto tuyo,
+                        sin prisa, entre el primer sorbo y el último.
+                    </p>
+
+                    <div class="hero-actions">
+
+                        <a href="#ritual" class="btn btn-primary">
+                            Conocer el ritual
+                        </a>
+
+                        <a href="#nosotros" class="btn btn-ghost">
+                            Quiénes somos
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Imagen LCP -->
+
+                <div class="hero-media" aria-hidden="true">
+
+                    <img
+                        src="images/banner-crop.webp"
+                        alt=""
+                        width="800"
+                        height="1000"
+                        loading="eager"
+                        fetchpriority="high"
+                        decoding="async"
+                    >
+
+                    <div class="steam" aria-hidden="true">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+
+                </div>
+
             </div>
-          </figcaption>
-        </figure>
 
-        <figure class="testimonios-card reveal">
-          <blockquote>
-            <p>Trabajar con LiveCoffee cambió nuestra cafetería. Los granos llegan siempre frescos y nuestros clientes lo notan. El equipo responde rápido y se involucra como un socio, no como un simple proveedor.</p>
-          </blockquote>
-          <figcaption>
-            <img src="images/diego.jpg" alt="" class="img-perfil" loading="lazy" decoding="async">
-            <div>
-              <span class="name">Diego Gonzalo</span>
-              <span class="role">Tostadero La Merced</span>
+
+            <a
+                href="#nosotros"
+                class="scroll-cue"
+                aria-label="Bajar a la siguiente sección"
+            >
+                <span></span>
+            </a>
+
+        </section>
+
+
+
+        <!-- ========================================================
+             NOSOTROS
+             ======================================================== -->
+
+        <section class="about" id="nosotros">
+
+            <div class="about-grid">
+
+
+                <div class="about-copy reveal">
+
+                    <p class="eyebrow eyebrow-dark">
+                        Nosotros
+                    </p>
+
+                    <h2>
+                        Cuidamos el café desde&nbsp;la&nbsp;raíz
+                        <br>
+                        hasta&nbsp;la&nbsp;taza.
+                    </h2>
+
+                    <p>
+                        Somos un distribuidor de café de especialidad que
+                        cree que la calma también se cultiva. Trabajamos
+                        directo con productores comprometidos con el cultivo
+                        sostenible, eligiendo únicamente lotes de grano verde
+                        y tostado de calidad superior de distintas regiones
+                        cafeteras.
+                    </p>
+
+                    <p>
+                        Abastecemos cafeterías, restaurantes y hoteles que
+                        buscan consistencia y una historia real detrás de
+                        cada bolsa. Trazabilidad, logística cuidada y
+                        acompañamiento cercano — porque un buen café no se
+                        vende, se comparte.
+                    </p>
+
+                    <a href="#contacto" class="text-link">
+                        Hablemos de tu carta de café
+                        <span aria-hidden="true">→</span>
+                    </a>
+
+                </div>
+
+
+                <!-- Galería -->
+
+                <div class="about-gallery" role="list">
+
+
+                    <figure class="reveal" role="listitem">
+
+                        <img
+                            src="images/imagen1.webp"
+                            alt="Granos de café recién cosechados en un cuenco de madera, junto a frutos de cacao."
+                            width="1200"
+                            height="750"
+                            loading="lazy"
+                            decoding="async"
+                        >
+
+                        <figcaption>
+                            Origen &amp; selección
+                        </figcaption>
+
+                    </figure>
+
+
+                    <figure
+                        class="reveal offset"
+                        role="listitem"
+                    >
+
+                        <img
+                            src="images/imagen2.webp"
+                            alt="Detalle del proceso de tueste artesanal del café."
+                            width="800"
+                            height="1000"
+                            loading="lazy"
+                            decoding="async"
+                        >
+
+                        <figcaption>
+                            Tueste artesanal
+                        </figcaption>
+
+                    </figure>
+
+
+                    <figure class="reveal" role="listitem">
+
+                        <img
+                            src="images/imagen3.webp"
+                            alt="Café recién tostado listo para su distribución."
+                            width="800"
+                            height="1000"
+                            loading="lazy"
+                            decoding="async"
+                        >
+
+                        <figcaption>
+                            Reparto cuidado
+                        </figcaption>
+
+                    </figure>
+
+                </div>
+
             </div>
-          </figcaption>
-        </figure>
 
-        <figure class="testimonios-card reveal">
-          <blockquote>
-            <p>Trabajamos con varios proveedores a lo largo de los años, pero este distribuidor se destaca por su consistencia y atención al detalle. Es raro encontrar un socio que entienda tan bien el producto y el negocio.</p>
-          </blockquote>
-          <figcaption>
-            <img src="images/ernest.jpg" alt="" class="img-perfil" loading="lazy" decoding="async">
-            <div>
-              <span class="name">Ernesto Martín</span>
-              <span class="role">Hotel Boutique Almendro</span>
+        </section>
+
+
+
+        <!-- ========================================================
+             RITUAL
+             ======================================================== -->
+
+        <section class="ritual" id="ritual">
+
+            <div class="ritual-intro reveal">
+
+                <p class="eyebrow">
+                    El ritual
+                </p>
+
+                <h2>
+                    Cuatro minutos que&nbsp;marcan
+                    <br>
+                    el resto del día.
+                </h2>
+
+                <p>
+                    Así preparamos cada pour-over en LiveCoffee.
+                    No es una lista de servicios: es el tiempo real que
+                    el café necesita para entregarte todo su aroma.
+                    Nada se apura.
+                </p>
+
             </div>
-          </figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
 
-  <section class="contacto" id="contacto">
-    <div class="contacto-content">
-      <div class="contacto-intro reveal">
-        <p class="eyebrow eyebrow-dark">Contacto</p>
-        <h2>Contanos qué taza<br>estás buscando</h2>
-        <p>Respondemos en menos de 24 horas hábiles. Sin formularios eternos, sin apuro tampoco.</p>
 
-        <ul class="contact-details">
-          <li><i class="fa-solid fa-mug-saucer"></i> hola@livecoffee.com</li>
-          <li><i class="fa-solid fa-phone"></i> +54 9 362 000-0000</li>
-          <li><i class="fa-solid fa-location-dot"></i> Chaco, Argentina</li>
-        </ul>
-      </div>
+            <ol class="ritual-timeline">
 
-      <form action="" class="form-contact reveal" novalidate>
-        <div class="field-row">
-          <div class="field">
-            <input type="text" id="nombre" placeholder=" " required>
-            <label for="nombre">Nombre</label>
-          </div>
-          <div class="field">
-            <input type="text" id="apellido" placeholder=" ">
-            <label for="apellido">Apellido</label>
-          </div>
+
+                <li class="ritual-step reveal">
+
+                    <span class="ritual-time">
+                        0:00
+                    </span>
+
+                    <div class="ritual-body">
+
+                        <h3>
+                            Floración
+                        </h3>
+
+                        <p>
+                            Vertemos agua a 92° sobre el café recién molido.
+                            El grano libera su primer aroma y se hincha:
+                            es el CO₂ escapando, señal de un tueste fresco.
+                        </p>
+
+                    </div>
+
+                </li>
+
+
+                <li class="ritual-step reveal">
+
+                    <span class="ritual-time">
+                        0:30
+                    </span>
+
+                    <div class="ritual-body">
+
+                        <h3>
+                            Primer vertido
+                        </h3>
+
+                        <p>
+                            En círculos lentos, del centro hacia afuera,
+                            dejamos que el agua atraviese el café sin
+                            ahogarlo. Aquí se define el cuerpo de la taza.
+                        </p>
+
+                    </div>
+
+                </li>
+
+
+                <li class="ritual-step reveal">
+
+                    <span class="ritual-time">
+                        1:45
+                    </span>
+
+                    <div class="ritual-body">
+
+                        <h3>
+                            Segundo vertido
+                        </h3>
+
+                        <p>
+                            Un segundo riego más generoso equilibra la acidez
+                            y realza las notas dulces y frutales propias del
+                            origen del grano.
+                        </p>
+
+                    </div>
+
+                </li>
+
+
+                <li class="ritual-step reveal">
+
+                    <span class="ritual-time">
+                        3:00
+                    </span>
+
+                    <div class="ritual-body">
+
+                        <h3>
+                            Reposo y servido
+                        </h3>
+
+                        <p>
+                            Dejamos que el filtro drene por completo.
+                            Sin remover, sin apurar. Lo que queda en la
+                            jarra es la calma, servida.
+                        </p>
+
+                    </div>
+
+                </li>
+
+            </ol>
+
+        </section>
+
+
+
+        <!-- ========================================================
+             TESTIMONIOS
+             ======================================================== -->
+
+        <section class="testimonios" id="clientes">
+
+            <div class="testimonios-content">
+
+                <p class="eyebrow eyebrow-light reveal">
+                    Clientes
+                </p>
+
+                <h2 class="reveal">
+                    Quienes ya bajaron
+                    <br>
+                    el ritmo con nosotros
+                </h2>
+
+
+                <div class="testimonios-group">
+
+
+                    <figure class="testimonios-card reveal">
+
+                        <blockquote>
+
+                            <p>
+                                Desde que trabajamos con este distribuidor,
+                                la calidad de nuestro café subió un escalón.
+                                No solo entregan granos excelentes: acompañan
+                                todo el proceso. Se nota la pasión y el
+                                compromiso real.
+                            </p>
+
+                        </blockquote>
+
+
+                        <figcaption>
+
+                            <img
+                                src="images/elian.webp"
+                                alt=""
+                                class="img-perfil"
+                                width="48"
+                                height="48"
+                                loading="lazy"
+                                decoding="async"
+                            >
+
+                            <div>
+
+                                <span class="name">
+                                    Elio Martínez
+                                </span>
+
+                                <span class="role">
+                                    Café de barrio, Rosario
+                                </span>
+
+                            </div>
+
+                        </figcaption>
+
+                    </figure>
+
+
+
+                    <figure class="testimonios-card reveal">
+
+                        <blockquote>
+
+                            <p>
+                                Trabajar con LiveCoffee cambió nuestra
+                                cafetería. Los granos llegan siempre frescos
+                                y nuestros clientes lo notan. El equipo
+                                responde rápido y se involucra como un socio,
+                                no como un simple proveedor.
+                            </p>
+
+                        </blockquote>
+
+
+                        <figcaption>
+
+                            <img
+                                src="images/diego.webp"
+                                alt=""
+                                class="img-perfil"
+                                width="48"
+                                height="48"
+                                loading="lazy"
+                                decoding="async"
+                            >
+
+                            <div>
+
+                                <span class="name">
+                                    Diego Gonzalo
+                                </span>
+
+                                <span class="role">
+                                    Tostadero La Merced
+                                </span>
+
+                            </div>
+
+                        </figcaption>
+
+                    </figure>
+
+
+
+                    <figure class="testimonios-card reveal">
+
+                        <blockquote>
+
+                            <p>
+                                Trabajamos con varios proveedores a lo largo
+                                de los años, pero este distribuidor se destaca
+                                por su consistencia y atención al detalle.
+                                Es raro encontrar un socio que entienda tan
+                                bien el producto y el negocio.
+                            </p>
+
+                        </blockquote>
+
+
+                        <figcaption>
+
+                            <img
+                                src="images/ernest.webp"
+                                alt=""
+                                class="img-perfil"
+                                width="48"
+                                height="48"
+                                loading="lazy"
+                                decoding="async"
+                            >
+
+                            <div>
+
+                                <span class="name">
+                                    Ernesto Martín
+                                </span>
+
+                                <span class="role">
+                                    Hotel Boutique Almendro
+                                </span>
+
+                            </div>
+
+                        </figcaption>
+
+                    </figure>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ========================================================
+             CONTACTO
+             ======================================================== -->
+
+        <section class="contacto" id="contacto">
+
+            <div class="contacto-content">
+
+
+                <div class="contacto-intro reveal">
+
+                    <p class="eyebrow eyebrow-dark">
+                        Contacto
+                    </p>
+
+                    <h2>
+                        Contanos qué taza
+                        <br>
+                        estás buscando
+                    </h2>
+
+                    <p>
+                        Respondemos en menos de 24 horas hábiles.
+                        Sin formularios eternos, sin apuro tampoco.
+                    </p>
+
+
+                    <ul class="contact-details">
+
+                        <li>
+                            <span aria-hidden="true">☕</span>
+                            hola@livecoffee.com
+                        </li>
+
+                        <li>
+                            <span aria-hidden="true">☎</span>
+                            +54 9 362 000-0000
+                        </li>
+
+                        <li>
+                            <span aria-hidden="true">⌖</span>
+                            Chaco, Argentina
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <form
+                    action=""
+                    class="form-contact reveal"
+                    novalidate
+                >
+
+                    <div class="field-row">
+
+                        <div class="field">
+
+                            <input
+                                type="text"
+                                id="nombre"
+                                placeholder=" "
+                                autocomplete="given-name"
+                                required
+                            >
+
+                            <label for="nombre">
+                                Nombre
+                            </label>
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <input
+                                type="text"
+                                id="apellido"
+                                placeholder=" "
+                                autocomplete="family-name"
+                            >
+
+                            <label for="apellido">
+                                Apellido
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="field-row">
+
+                        <div class="field">
+
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder=" "
+                                autocomplete="email"
+                                required
+                            >
+
+                            <label for="email">
+                                Email
+                            </label>
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <input
+                                type="tel"
+                                id="telefono"
+                                placeholder=" "
+                                autocomplete="tel"
+                            >
+
+                            <label for="telefono">
+                                Teléfono
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <textarea
+                            id="mensaje"
+                            rows="4"
+                            placeholder=" "
+                        ></textarea>
+
+                        <label for="mensaje">
+                            Contanos sobre tu cafetería o negocio
+                        </label>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary send-btn"
+                    >
+                        Enviar mensaje
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- ============================================================
+         FOOTER
+         ============================================================ -->
+
+    <footer class="footer">
+
+        <div class="footer-content">
+
+            <a
+                class="brand brand-footer"
+                href="#top"
+            >
+                LiveCoffee
+            </a>
+
+
+            <div class="social">
+
+                <a href="#" aria-label="Facebook">
+                    f
+                </a>
+
+                <a href="#" aria-label="X">
+                    𝕏
+                </a>
+
+                <a href="#" aria-label="Instagram">
+                    ◎
+                </a>
+
+                <a href="#" aria-label="Google">
+                    G
+                </a>
+
+            </div>
+
+
+            <p class="copr">
+                © 2026 LiveCoffee. Hecho con calma.
+            </p>
+
         </div>
-        <div class="field-row">
-          <div class="field">
-            <input type="email" id="email" placeholder=" " required>
-            <label for="email">Email</label>
-          </div>
-          <div class="field">
-            <input type="tel" id="telefono" placeholder=" ">
-            <label for="telefono">Teléfono</label>
-          </div>
-        </div>
-        <div class="field">
-          <textarea id="mensaje" rows="4" placeholder=" "></textarea>
-          <label for="mensaje">Contanos sobre tu cafetería o negocio</label>
-        </div>
-        <button type="submit" class="btn btn-primary send-btn">Enviar mensaje</button>
-      </form>
-    </div>
-  </section>
 
-</main>
+    </footer>
 
-<footer class="footer">
-  <div class="footer-content">
-    <a class="brand brand-footer" href="#top">LiveCoffee</a>
-    <div class="social">
-      <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-      <a href="#" aria-label="X"><i class="fab fa-x-twitter"></i></a>
-      <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-      <a href="#" aria-label="Google"><i class="fab fa-google"></i></a>
-    </div>
-    <p class="copr">© 2026 LiveCoffee. Hecho con calma.</p>
-  </div>
-</footer>
 
-<!-- ============================================================
-     MEJORA 7: JavaScript con DEFER (no bloquea renderizado)
-     Mantengo TODO tu JS original, solo lo muevo al final
-     ============================================================ -->
-<script defer>
-  // Cerrar el menú móvil al navegar
-  document.querySelectorAll('.nav-options a').forEach(link => {
-    link.addEventListener('click', () => {
-      document.getElementById('check').checked = false;
-    });
-  });
 
-  // Header sólido al hacer scroll
-  const header = document.getElementById('siteHeader');
-  const onScroll = () => header.classList.toggle('is-solid', window.scrollY > 40);
-  document.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+    <!-- ============================================================
+         JAVASCRIPT
+         ============================================================ -->
 
-  // Revelado suave al hacer scroll
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealEls = document.querySelectorAll('.reveal');
-  if (prefersReducedMotion || !('IntersectionObserver' in window)) {
-    revealEls.forEach(el => el.classList.add('is-visible'));
-  } else {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-    revealEls.forEach(el => io.observe(el));
-  }
-</script>
+    <script>
 
-<!-- ============================================================
-     MEJORA 8: Service Worker para caché (solo si existe sw.js)
-     ============================================================ -->
-<script defer>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('/sw.js')
-        .then(function(registration) {
-          console.log('SW registrado con éxito:', registration.scope);
-        })
-        .catch(function(error) {
-          console.log('Error al registrar SW:', error);
+        /* ----------------------------------------------------------
+           Menú móvil
+           ---------------------------------------------------------- */
+
+        const menuCheckbox = document.getElementById('check');
+
+        document.querySelectorAll('.nav-options a').forEach(link => {
+
+            link.addEventListener('click', () => {
+
+                menuCheckbox.checked = false;
+
+            });
+
         });
-    });
-  }
-</script>
+
+
+
+        /* ----------------------------------------------------------
+           Header al hacer scroll
+           ---------------------------------------------------------- */
+
+        const header = document.getElementById('siteHeader');
+
+        let ticking = false;
+
+        function updateHeader() {
+
+            header.classList.toggle(
+                'is-solid',
+                window.scrollY > 40
+            );
+
+            ticking = false;
+
+        }
+
+        document.addEventListener(
+            'scroll',
+            () => {
+
+                if (!ticking) {
+
+                    window.requestAnimationFrame(updateHeader);
+
+                    ticking = true;
+
+                }
+
+            },
+            { passive: true }
+        );
+
+        updateHeader();
+
+
+
+        /* ----------------------------------------------------------
+           Reveal al hacer scroll
+           ---------------------------------------------------------- */
+
+        const prefersReducedMotion =
+            window.matchMedia(
+                '(prefers-reduced-motion: reduce)'
+            ).matches;
+
+        const revealEls =
+            document.querySelectorAll('.reveal');
+
+
+        if (
+            prefersReducedMotion ||
+            !('IntersectionObserver' in window)
+        ) {
+
+            revealEls.forEach(el => {
+                el.classList.add('is-visible');
+            });
+
+        } else {
+
+            const io =
+                new IntersectionObserver(
+                    entries => {
+
+                        entries.forEach(entry => {
+
+                            if (entry.isIntersecting) {
+
+                                entry.target.classList.add(
+                                    'is-visible'
+                                );
+
+                                io.unobserve(entry.target);
+
+                            }
+
+                        });
+
+                    },
+                    {
+                        threshold: 0.15,
+                        rootMargin: '0px 0px -40px 0px'
+                    }
+                );
+
+
+            revealEls.forEach(el => {
+                io.observe(el);
+            });
+
+        }
+
+    </script>
+
+
+
+    <!-- ============================================================
+         SERVICE WORKER
+         ============================================================ -->
+
+    <script>
+
+        if ('serviceWorker' in navigator) {
+
+            window.addEventListener('load', () => {
+
+                navigator.serviceWorker
+                    .register('./sw.js')
+                    .catch(() => {});
+
+            });
+
+        }
+
+    </script>
 
 </body>
+
 </html>
