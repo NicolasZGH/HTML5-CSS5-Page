@@ -1,0 +1,44 @@
+/* ============================================================
+   CSS NO CRÍTICO - Carga asíncrona
+   ============================================================ */
+
+/* Fuentes externas (cargadas solo después del renderizado) */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+/* Estilos adicionales para mejorar la experiencia */
+.container {
+    transition: box-shadow 0.3s ease;
+}
+
+.container:hover {
+    box-shadow: 0 12px 40px rgba(44, 24, 16, 0.12);
+}
+
+/* Animaciones suaves */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.container {
+    animation: fadeIn 0.6s ease-out;
+}
+
+/* Estilos para el modo oscuro (si se implementa) */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #1a0f0a;
+        color: #f0e8e0;
+    }
+    .container {
+        background: #2c1810;
+        border-color: #3d2a1f;
+    }
+    .stat-item {
+        background: #3d2a1f;
+    }
+    .quote {
+        background: #3d2a1f;
+        border-left-color: #8b6b4f;
+    }
+}
